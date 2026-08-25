@@ -29,11 +29,11 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link d-flex align-items-center gap-2" href="#">
+        <a class="nav-link d-flex align-items-center gap-2" href="../cliente">
         <svg class="bi" aria-hidden="true">
             <use xlink:href="#people"></use>
         </svg>
-        Customers
+        Clientes
         </a>
     </li>
     <li class="nav-item">
