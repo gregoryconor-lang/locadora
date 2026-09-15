@@ -1,11 +1,3 @@
-<?php
-    // Incluir o arquivo para carregamento das classes
-    require "../../autoload.php";
-
-    // Instanciar um objeto da classe DAO
-    $dao = new ClienteDAO();
-?>
-
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -367,32 +359,33 @@
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
-            <h1 class="h2">Gerenciamento de Clientes</h1>           
+            <h1 class="h2">Cadastrar Cliente</h1>           
             
-          </div>
-          <p>
-            <a href="create.php">Novo Cliente</a>
-          </p>          
+          </div>        
           
           <div class="table-responsive small">
-            <table class="table table-hover">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>E-mail</th>
-                </tr>
-                <?php foreach($dao->read() as $cliente) : ?>
-                    <tr>
-                        <td><?= $cliente->getId() ?></td>
-                        <td><?= $cliente->getNome() ?></td>
-                        <td><?= $cliente->getCpf() ?></td>
-                        <td><?= $cliente->getTelefone() ?></td>
-                        <td><?= $cliente->getEmail() ?></td>
-                    </tr>
-                <?php endforeach ?>
-            </table>
+            <form action="insert.php" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" name="cpf" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" name="telefone" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="reset" value="Limpar" class="btn">
+                    <input type="submit" value="Salvar" class="btn btn-success">
+                </div>
+            </form>
           </div>
         </main>
       </div>
