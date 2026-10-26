@@ -395,7 +395,7 @@
                         <td>
                           <a title="Editar" href="edit.php?id=<?= $cliente->getId() ?>">
                             <i class="bi bi-pencil"></i>
-                          </a>
+                          </a>                          
                           <a title="Excluir" class="link-danger" href="destroy.php?id=<?= $cliente->getId() ?>">
                             <i class="bi bi-trash3"></i>
                           </a>
