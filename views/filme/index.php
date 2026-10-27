@@ -382,6 +382,7 @@
                     <th>Título</th>
                     <th>Ano de Lançamento</th>
                     <th>Exemplares Disponíveis</th>
+                    <th>Categoria</th>
                     <th>Ações</th>
                 </tr>
                 <?php foreach($dao->read() as $filme) : ?>
@@ -390,6 +391,7 @@
                         <td><?= $filme->getTitulo() ?></td>
                         <td><?= $filme->getAnoLancamento() ?></td>
                         <td><?= $filme->getExemplaresDisponiveis() ?></td>
+                        <td><?= $filme->getCategoria()->getDescricao() ?></td>
                         <td>
                           <a title="Editar" href="edit.php?id=<?= $filme->getId() ?>">
                             <i class="bi bi-pencil"></i>

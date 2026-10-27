@@ -3,13 +3,15 @@
         public function create($filme) {
             try {
                 $query = BD::getConexao()->prepare(
-                    "INSERT INTO filme(titulo, ano_lancamento, sinopse, exemplares_disponiveis) 
-                    VALUES (:t, :a, :s, :e)"
+                    "INSERT INTO filme(titulo, ano_lancamento, sinopse, exemplares_disponiveis, id_categoria) 
+                    VALUES (:t, :a, :s, :e, :c)"
                 );
                 $query->bindValue(':t', $filme->getTitulo(), PDO::PARAM_STR);
                 $query->bindValue(':a', $filme->getAnoLancamento(), PDO::PARAM_INT);
                 $query->bindValue(':s', $filme->getSinopse(), PDO::PARAM_STR);
                 $query->bindValue(':e', $filme->getExemplaresDisponiveis(), PDO::PARAM_INT);
+                // Bind para a chave estrangeira
+                $query->bindValue(':c', $filme->getCategoria()->getId(), PDO::PARAM_INT);
 
                 if(!$query->execute()) {
                     print_r($query->errorInfo());
@@ -36,6 +38,11 @@
                     $filme->setAnoLancamento($linha['ano_lancamento']);
                     $filme->setSinopse($linha['sinopse']);
                     $filme->setExemplaresDisponiveis($linha['exemplares_disponiveis']);
+                    // Atributo da associação (com Categoria)
+                    $daoCategoria = new CategoriaDAO();
+                    $categoria = $daoCategoria->find($linha['id_categoria']);
+                    $filme->setCategoria($categoria);
+
 
                     array_push($listaFilmes, $filme);
                 }

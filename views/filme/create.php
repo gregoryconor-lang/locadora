@@ -1,3 +1,9 @@
+<?php
+  require "../../autoload.php";
+
+  $daoCategoria = new CategoriaDAO();
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head>
@@ -359,7 +365,7 @@
           <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
           >
-            <h1 class="h2">Cadastrar Cliente</h1>           
+            <h1 class="h2">Cadastrar Filme</h1>           
             
           </div>        
           
@@ -377,6 +383,19 @@
                     <label for="exemplares_disponiveis">Quantidade de Exemplares Disponíveis</label>
                     <input type="exemplares_disponiveis" name="exemplares_disponiveis" class="form-control">
                 </div>
+
+                <div class="form-group">
+                  <label for="id_categoria">Categoria</label>
+                  <select name="id_categoria" class="form-control">
+                    <?php foreach($daoCategoria->read() as $categoria) : ?>
+                      <option value="<?= $categoria->getId() ?>">
+                        <?= $categoria->getDescricao() ?>
+                      </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+
+
                 <div class="form-group">
                     <label for="sinopse">Sinopse</label>
                     <textarea name="sinopse" class="form-control"></textarea>
