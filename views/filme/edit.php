@@ -1,8 +1,10 @@
 <?php
-    require "../../autoload.php";
+  require "../../autoload.php";
 
-    $dao = new FilmeDAO();
-    $filme = $dao->find($_GET['id']);
+  $dao = new FilmeDAO();
+  $filme = $dao->find($_GET['id']);
+
+  $daoCategoria = new CategoriaDAO();
 ?>
 
 <!doctype html>
@@ -347,7 +349,7 @@
           >
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="sidebarMenuLabel">
-                Company name
+                Locadora em Classe
               </h5>
               <button
                 type="button"
@@ -377,19 +379,40 @@
                     <input type="text" name="titulo" value="<?= $filme->getTitulo() ?>" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="ano_lancamento">Ano de Lançamento</label>
+                    <label for="ano_lancamento">Ano_de Lançamento</label>
                     <input type="text" name="ano_lancamento" value="<?= $filme->getAnoLancamento() ?>" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="exemplares_disponiveis">Quantidade de Exemplares Disponíveis</label>
                     <input type="exemplares_disponiveis" name="exemplares_disponiveis" value="<?= $filme->getExemplaresDisponiveis() ?>" class="form-control">
                 </div>
+
+                <div class="form-group">
+                  <label for="id_categoria">Categoria</label>
+                  <select name="id_categoria" class="form-control">
+                    <?php foreach($daoCategoria->read() as $categoria) : ?>
+                      <?php if($categoria->getId() == $filme->getCategoria()->getId()) : ?>
+                        <option selected value="<?= $categoria->getId() ?>">
+                          <?= $categoria->getDescricao() ?>
+                        </option>
+                      <?php else : ?>
+                        <option value="<?= $categoria->getId() ?>">
+                          <?= $categoria->getDescricao() ?>
+                        </option>
+                      <?php endif ?>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+
+
                 <div class="form-group">
                     <label for="sinopse">Sinopse</label>
                     <textarea name="sinopse" class="form-control"><?= $filme->getSinopse() ?></textarea>
                 </div>
 
-                <input type="hidden" name="id" value="<?= $filme->getId() ?>">
+                <div>
+                  <input type="hidden" name="id" value="<?= $filme->getId() ?>">
+                </div>
 
                 <div class="form-group">
                     <input type="reset" value="Limpar" class="btn">

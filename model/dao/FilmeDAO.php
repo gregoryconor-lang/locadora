@@ -72,6 +72,10 @@
                     $filme->setAnoLancamento($linha['ano_lancamento']);
                     $filme->setSinopse($linha['sinopse']);
                     $filme->setExemplaresDisponiveis($linha['exemplares_disponiveis']);
+                    // Atributo da associação (com Categoria)
+                    $daoCategoria = new CategoriaDAO();
+                    $categoria = $daoCategoria->find($linha['id_categoria']);
+                    $filme->setCategoria($categoria);
                 }
                 
                 return $filme;
@@ -85,13 +89,14 @@
             try {
                 $query = BD::getConexao()->prepare(
                     "UPDATE filme
-                    SET titulo = :t, ano_lancamento = :a, sinopse = :s, exemplares_disponiveis = :e
+                    SET titulo = :t, ano_lancamento = :a, sinopse = :s, exemplares_disponiveis = :e, id_categoria = :c
                     WHERE id_filme = :i"
                 );
                 $query->bindValue(':t', $filme->getTitulo(), PDO::PARAM_STR);
                 $query->bindValue(':a', $filme->getAnoLancamento(), PDO::PARAM_INT);
                 $query->bindValue(':s', $filme->getSinopse(), PDO::PARAM_STR);
                 $query->bindValue(':e', $filme->getExemplaresDisponiveis(), PDO::PARAM_INT);
+                $query->bindValue(':c', $filme->getCategoria()->getId(), PDO::PARAM_INT);
                 $query->bindValue(':i', $filme->getId(), PDO::PARAM_INT);
 
                 if(!$query->execute()) {

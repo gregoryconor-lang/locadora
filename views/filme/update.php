@@ -12,10 +12,17 @@
     $filme->setSinopse($_POST['sinopse']);
     $filme->setId($_POST['id']);
 
+    // Instanciar um objeto da Categoria
+    $categoria = new Categoria();
+    $categoria->setId($_POST['id_categoria']);
+
+    // Definir a categoria no filme
+    $filme->setCategoria($categoria);
+
     // Instanciar um objeto da classe filmeDAO
     $dao = new FilmeDAO();
 
-    // Invocar o método create
+    // Invocar o método update
     $dao->update($filme);
 
     // Redirecionar para o index (COMENTAR CASO NÃO FUNCIONE)
